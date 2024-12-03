@@ -1,0 +1,17 @@
+WITH RECURSIVE CTE AS (
+    SELECT ID, PARENT_ID, 1 AS GEN # 1세대
+    FROM ECOLI_DATA
+    WHERE PARENT_ID IS NULL
+    
+    UNION ALL 
+    
+    # 이전 세대의 ID를 PARENT_ID로 갖는 데이터 찾은 후, 세대 + 1
+    SELECT D.ID, D.PARENT_ID, CTE.GEN + 1 # 세대 + 1
+    FROM ECOLI_DATA D
+    INNER JOIN CTE ON D.PARENT_ID = CTE.ID # 재귀적으로 자식 세대 탐색
+)
+# 3세대
+SELECT ID
+FROM CTE
+WHERE GEN = 3
+ORDER BY ID;
