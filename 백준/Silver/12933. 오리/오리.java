@@ -6,7 +6,7 @@ public class Main {
     static char[] duck = {'q', 'u', 'a', 'c', 'k'};
     static boolean[] visited;
     static int index, result;
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         input = br.readLine().toCharArray();
         visited = new boolean[input.length];
@@ -32,8 +32,8 @@ public class Main {
                 // k까지 도달 -> 0으로 초기화
                 if (index == 5) index = 0;
             }
-            // k로 끝나지 않을 경우
             if (!chars.isEmpty()) {
+                // k로 끝나지 않을 경우
                 if (chars.get(chars.size() - 1) != 'k') {
                     System.out.println(-1);
                     return;
