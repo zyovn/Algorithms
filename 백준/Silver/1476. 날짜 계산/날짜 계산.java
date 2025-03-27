@@ -12,8 +12,7 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
         result = 1;
 
-        while (true) {
-            if ((result - E) % 15 == 0 && (result - S) % 28 == 0 && (result - M) % 19 == 0) break;
+        while ((result - E) % 15 != 0 || (result - S) % 28 != 0 || (result - M) % 19 != 0) {
             result++;
         }
         System.out.println(result);
