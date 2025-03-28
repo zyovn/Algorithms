@@ -21,10 +21,10 @@ public class Main {
         System.out.println(min);
     }
     private static void BackTracking(int depth, int s, int b, int cnt) {
-        // 모든 재료 확인 후, 출력
+        // 모든 재료 확인
         if (depth == N) {
-            if (cnt > 0) { // 재료 최소 한 개 이상 선택
-                min = Math.min(min, Math.abs(s -b));
+            if (cnt > 0) { // 재료 최소 1개 이상 선택
+                min = Math.min(min, Math.abs(s - b)); // 현재 최소값과 비교 후, 갱신
             }
             return;
         }
