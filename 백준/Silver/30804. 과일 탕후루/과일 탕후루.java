@@ -35,7 +35,6 @@ public class Main {
             }
             max = Math.max(max, end - start + 1);
         }
-
         bw.write(max + "");
         bw.flush();
         bw.close();
