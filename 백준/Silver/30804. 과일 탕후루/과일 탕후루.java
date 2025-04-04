@@ -18,25 +18,24 @@ public class Main {
             S[i] = Integer.parseInt(st.nextToken());
         }
 
-        Map<Integer, Integer> map = new HashMap<>();
+        // 과일 개수를 세기 위해 HashMap 사용 (key = 과일 번호, value = 과일 등장 수)
+        HashMap<Integer, Integer> map = new HashMap<>();
 
+        // 투 포인터 - 슬라이드 윈도우
         for (int end = 0; end < N; end++) {
-            // end++ 하면서 현재 숫자 해시 맵에 추가
-            // get -> 처음 추가하는 숫자는 null 이므로 에러 발생 -> getOrDefault 사용
             map.put(S[end], map.getOrDefault(S[end], 0) + 1);
 
-            // 종류 2개 초과 -> start 이동시켜 범위 조정
             while (map.size() > 2) {
                 map.put(S[start], map.get(S[start]) - 1);
 
-                // 0 되면 삭제
+                // 과일 개수가 0일 경우 map 에서 삭제
                 if (map.get(S[start]) == 0) map.remove(S[start]);
 
                 start++;
             }
-            // 최댓값 갱신
             max = Math.max(max, end - start + 1);
         }
+
         bw.write(max + "");
         bw.flush();
         bw.close();
