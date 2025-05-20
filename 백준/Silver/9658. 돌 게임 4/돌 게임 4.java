@@ -17,11 +17,9 @@ public class Main {
         dp[4] = true;
 
         for (int i = 5; i <= N; i++) {
-            if (!dp[i - 1] || !dp [i - 3] || !dp[i - 4]) dp[i] = true;
-            else dp[i] = false;
+            dp[i] = !dp[i - 1] || !dp[i - 3] || !dp[i - 4];
         }
-        if (dp[N]) sb.append("SK");
-        else  sb.append("CY");
+        sb.append(dp[N] ? "SK" : "CY");
 
         br.close();
         bw.write(sb.toString());
