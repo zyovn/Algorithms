@@ -1,8 +1,8 @@
 class Solution {
     public long solution(long n) {
-        double sqrt = Math.sqrt(n);
-        
-        if (sqrt == (long) sqrt) return (long) Math.pow(sqrt + 1, 2);
-        else return -1;
+        if (Math.pow((long) Math.sqrt(n), 2) == n) {
+            return (long) Math.pow(Math.sqrt(n) + 1, 2);
+        }
+        return -1;
     }
 }
