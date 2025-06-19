@@ -34,7 +34,6 @@ public class Main {
         for (int i = 0; i < N; i++) {
             sb.append(members.get(i).age).append(" ").append(members.get(i).name).append("\n");
         }
-
         br.close();
         bw.write(sb.toString());
         bw.flush();
