@@ -30,11 +30,8 @@ public class Main {
             } else if (sum == max) cnt++;
         }
 
-        if (max == 0) {
-            sb.append("SAD");
-        } else {
-            sb.append(max).append("\n").append(cnt);
-        }
+        if (max == 0) sb.append("SAD");
+        else sb.append(max).append("\n").append(cnt);
 
         br.close();
         bw.write(sb.toString());;
