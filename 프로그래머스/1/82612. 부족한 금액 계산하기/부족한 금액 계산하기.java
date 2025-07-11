@@ -7,8 +7,6 @@ class Solution {
              sum += price * i;
         }
         
-        if (sum > money) answer = sum - money;
-        else answer = 0;
-        return answer;
+        return sum > money ? sum - money : 0;
     }
 }
