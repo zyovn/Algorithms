@@ -11,12 +11,10 @@ public class Main {
         N = 1;
 
         while (true) {
-            if (sum <= S) {
+            if (sum + N > S) break;
+            else {
                 sum += N;
                 N++;
-            } else {
-                N--;
-                break;
             }
         }
         sb.append(N - 1);
