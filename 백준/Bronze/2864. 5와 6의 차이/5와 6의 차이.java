@@ -13,13 +13,13 @@ public class Main {
         A = st.nextToken();
         B = st.nextToken();
 
-        String minA = A.replaceAll("6", "5");
-        String minB = B.replaceAll("6", "5");
+        String minA = A.replace("6", "5");
+        String minB = B.replace("6", "5");
 
         min = Integer.parseInt(minA) + Integer.parseInt(minB);
 
-        String maxA = A.replaceAll("5", "6");
-        String maxB = B.replaceAll("5", "6");
+        String maxA = A.replace("5", "6");
+        String maxB = B.replace("5", "6");
 
         max = Integer.parseInt(maxA) + Integer.parseInt(maxB);
 
