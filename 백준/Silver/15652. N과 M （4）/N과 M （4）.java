@@ -4,36 +4,34 @@ import java.util.*;
 public class Main {
     static int N, M;
     static int[] arr;
-    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         arr = new int[M];
 
-        backTracking(0, 1);
+        backTracking(0, 0);
 
+        br.close();
+        bw.write(sb.toString());
         bw.flush();
         bw.close();
     }
 
-    private static void backTracking(int depth, int start) throws IOException {
-        StringBuilder sb = new StringBuilder();
-
+    private static void backTracking(int depth, int start) {
         if (depth == M) {
             for (int i = 0; i < M; i++) {
                 sb.append(arr[i]).append(" ");
             }
             sb.append("\n");
-            
-            bw.write(sb.toString());
             return;
         }
-
-        for (int i = start; i <= N; i++) {
-            arr[depth] = i;
+        for (int i = start; i < N; i++) {
+            arr[depth] = i + 1;
             backTracking(depth + 1, i);
         }
     }
