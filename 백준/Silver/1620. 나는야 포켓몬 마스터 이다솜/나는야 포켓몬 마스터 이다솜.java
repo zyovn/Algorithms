@@ -1,16 +1,14 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static int N, M; // 포켓몬의 개수, 맞춰야 하는 문제의 개수
-    static String name, input; // 포켓몬 이름, 찾고자 하는 포켓몬
-    static HashMap<Integer, String> hm1 = new HashMap<Integer,String>();
-    static HashMap<String, Integer> hm2 = new HashMap<String, Integer>();
+    static int N, M;
+    static String name, input;
+    static HashMap<Integer, String> numMap = new HashMap<>();;
+    static HashMap<String, Integer> nameMap = new HashMap<>();;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
         StringBuilder sb = new StringBuilder();
 
@@ -19,18 +17,21 @@ public class Main {
 
         for (int i = 0; i < N; i++) {
             name = br.readLine();
-            hm1.put(i + 1, name);
-            hm2.put(name, i + 1);
+            numMap.put(i + 1, name);
+            nameMap.put(name, i + 1);
         }
+
         for (int i = 0; i < M; i++) {
             input = br.readLine();
-            if (input.matches("\\d+")) { // 숫자 입력
+            if (Character.isDigit(input.charAt(0))) {
                 int key = Integer.parseInt(input);
-                sb.append(hm1.get(key)).append("\n");
-            } else { // 포켓몬 이름 입력
-                sb.append(hm2.get(input)).append("\n");
+                sb.append(numMap.get(key)).append("\n");
             }
+            else sb.append(nameMap.get(input)).append("\n");
         }
-        System.out.println(sb);
+        br.close();
+        bw.write(sb.toString());;
+        bw.flush();
+        bw.close();
     }
 }
