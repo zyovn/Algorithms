@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int N, allCnt;
+    static int N, cnt, allCnt;
     static int[][] map;
     static boolean[][] isVisited;
     static int[] dx = {-1, 1, 0, 0};
@@ -26,9 +26,11 @@ public class Main {
 
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                if (map [i][j] == 1 && !isVisited[i][j]) {
-                    bfs(i, j);
+                if (map[i][j] == 1 && !isVisited[i][j]) {
+                    cnt = 0;
+                    dfs(i, j);
                     allCnt++;
+                    houseCnt.add(cnt);
                 }
             }
         }
@@ -44,29 +46,18 @@ public class Main {
         bw.close();
     }
 
-    private static void bfs(int x, int y) {
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{x, y});
+    private static void dfs(int x, int y) {
         isVisited[x][y] = true;
-        int cnt = 1;
+        cnt++;
 
-        while (!queue.isEmpty()) {
-            int[] cur = queue.poll();
-            int cx = cur[0];
-            int cy = cur[1];
+        for (int i = 0; i < 4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
 
-            for (int i = 0; i < 4; i++) {
-                int nx = cx + dx[i];
-                int ny = cy + dy[i];
+            if (nx < 0 || nx >= N || ny < 0 || ny >= N) continue;
+            if (map[nx][ny] == 0 || isVisited[nx][ny]) continue;
 
-                if (nx < 0 || nx >= N || ny < 0 || ny >= N) continue;
-                if (map[nx][ny] == 0 || isVisited[nx][ny]) continue;
-
-                queue.add(new int[]{nx, ny});
-                isVisited[nx][ny] = true;
-                cnt++;
-            }
+            dfs(nx, ny);
         }
-        houseCnt.add(cnt);
     }
 }
