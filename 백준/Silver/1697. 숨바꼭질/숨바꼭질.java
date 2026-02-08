@@ -35,14 +35,13 @@ public class Main {
             int curTime = cur[1];
 
             if (curLoc == target) {
-                time = curTime;
+                time += curTime;
                 return;
             }
             int[] nextLoc = {curLoc - 1, curLoc + 1, curLoc * 2};
-
+            
             for (int i = 0; i < 3; i++) {
                 int next = nextLoc[i];
-
                 if (next >= 0 && next <= 100000 && !isVisited[next]) {
                     queue.add(new int[]{next, curTime + 1});
                     isVisited[next] = true;
