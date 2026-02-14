@@ -8,9 +8,6 @@ class Solution {
                 if (cnt >= 1) sb.append(i);
             }
         }
-        StringBuilder sbRe = new StringBuilder(sb).reverse();
-        sb.append("0").append(sbRe);
-        
-        return sb.toString();
+        return sb.toString() + "0" + sb.reverse().toString();
     }
 }
