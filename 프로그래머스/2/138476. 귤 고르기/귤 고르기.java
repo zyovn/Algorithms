@@ -6,8 +6,8 @@ class Solution {
         int answer = 0;
         int sum = 0;
         
-        for (int i = 0; i < tangerine.length; i++) {
-            map.put(tangerine[i], map.getOrDefault(tangerine[i], 0) + 1);
+        for (int t : tangerine) {
+            map.put(t, map.getOrDefault(t, 0) + 1);
         }
         List<Integer> list = new ArrayList<>(map.values());
         list.sort(Comparator.reverseOrder());
