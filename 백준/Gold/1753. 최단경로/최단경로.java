@@ -1,32 +1,41 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static final int INF = Integer.MAX_VALUE;
+    private static class Node implements Comparable<Node>{
+        int node;
+        int cost;
+
+        public Node(int node, int cost) {
+            this.node = node;
+            this.cost = cost;
+        }
+
+        @Override
+        public int compareTo(Node o) {
+            return this.cost - o.cost;
+        }
+    }
     static int V, E, K;
-    static ArrayList<int[]>[] graph;
+    static ArrayList<Node>[] graph;
     static int[] dist;
     static boolean[] visited;
-
+    static int INF = Integer.MAX_VALUE;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
-        V = Integer.parseInt(st.nextToken()); //노드의 수
-        E = Integer.parseInt(st.nextToken()); //간선의 수
-        K = Integer.parseInt(br.readLine()); //시작 정점의 번호
+        V = Integer.parseInt(st.nextToken());
+        E = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(br.readLine());
 
-        //초기화
         graph = new ArrayList[V + 1];
         dist = new int[V + 1];
         visited = new boolean[V + 1];
 
-        //미방문 지점은 매우 큰 값으로 초기화
-        for (int i = 1; i <= V; i++){
+        for (int i = 1; i <= V; i++) {
             graph[i] = new ArrayList<>();
             dist[i] = INF;
         }
@@ -36,38 +45,36 @@ public class Main {
             int u = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
             int w = Integer.parseInt(st.nextToken());
-            graph[u].add(new int[]{v, w});
+            graph[u].add(new Node(v, w));
         }
-
         dijkstra(K);
 
         for (int i = 1; i <= V; i++) {
-            if (dist[i] == INF) {
-                System.out.println("INF");
-            } else {
-                System.out.println(dist[i]);
-            }
+            if (dist[i] == INF) sb.append("INF").append("\n");
+            else sb.append(dist[i]).append("\n");
         }
+        br.close();
+        bw.write(sb.toString());
+        bw.flush();
+        bw.close();
     }
+
     private static void dijkstra (int start) {
-        PriorityQueue<int[]> queue = new PriorityQueue<>((o1, o2) -> o1[0] - o2[0]);
-        queue.add(new int[]{0, start});
+        PriorityQueue<Node> pq = new PriorityQueue<>();
+        pq.add(new Node(start, 0));
         dist[start] = 0;
 
-        while (!queue.isEmpty()) {
-            int[] cur = queue.poll();
-            int curDist = cur[0];
-            int curNode = cur[1];
+        while (!pq.isEmpty()) {
+            Node cur = pq.poll();
+            int now = cur.node;
 
-            if (curDist > dist[curNode]) continue;
+            if (visited[now]) continue;
+            visited[now] = true;
 
-            for (int[] edge : graph[curNode]) {
-                int nNode = edge[0];
-                int weight = edge[1];
-
-                if (!visited[nNode] && dist[nNode] > curDist + weight) {
-                    dist[nNode] = curDist + weight;
-                    queue.add(new int[]{dist[nNode], nNode});
+            for (Node next : graph[now]) {
+                if (dist[next.node] > dist[now] + next.cost) {
+                    dist[next.node] = dist[now] + next.cost;
+                    pq.add(new Node(next.node, dist[next.node]));
                 }
             }
         }
