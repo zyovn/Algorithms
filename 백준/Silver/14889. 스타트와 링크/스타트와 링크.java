@@ -32,7 +32,8 @@ public class Main {
     }
 
     private static void backTracking(int depth, int start) {
-        if (depth == N / 2) {
+        int team = N / 2;
+        if (depth == team) {
             calculateAbility();
             return;
         }
@@ -45,15 +46,13 @@ public class Main {
     }
 
     private static void calculateAbility() {
-        int start = 0;
-        int link = 0;
-
+        int startTeam = 0, linkTeam = 0;
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= N; j++) {
-                if (isStartTeam[i] && isStartTeam[j]) start += ability[i][j];
-                else if (!isStartTeam[i] && !isStartTeam[j]) link += ability[i][j];
+                if (isStartTeam[i] && isStartTeam[j]) startTeam += ability[i][j];
+                else if (!isStartTeam[i] && !isStartTeam[j]) linkTeam += ability[i][j];
             }
         }
-        min = Math.min(min, Math.abs(start - link));
+        min = Math.min(min, Math.abs(startTeam - linkTeam));
     }
 }
