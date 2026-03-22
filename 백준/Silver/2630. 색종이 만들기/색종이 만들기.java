@@ -1,19 +1,17 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static int N; // 전체 종이의 한 변의 길이 (2, 4, 8, 16, 32, 64, 128)
-    static int white = 0;
-    static int blue = 0;
-    static int paper[][];
-
+    static int N, white, blue;
+    static int[][] paper;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
 
+        N = Integer.parseInt(br.readLine());
         paper = new int[N][N];
+
         for (int i = 0; i < N; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             for (int j = 0; j < N; j++) {
@@ -21,34 +19,35 @@ public class Main {
             }
         }
         division(0, 0, N);
-        System.out.println(white);
-        System.out.println(blue);
+
+        sb.append(white).append("\n").append(blue);
+
+        br.close();
+        bw.write(sb.toString());
+        bw.flush();
+        bw.close();
     }
 
     private static void division(int x, int y, int size) {
-        // 탐색 영역이 한가지 색으로 통일된 경우
-        if (check(x, y, size)) {
-            if (paper[x][y] == 0) {
-                white++;
-            } else {
-                blue++;
-            }
+        int half = size / 2;
+        if (isCheck(x, y, size)) {
+            if (paper[x][y] == 0) white++;
+            else blue++;
         } else {
-            division(x, y, size / 2); // 1사분면
-            division(x + size / 2, y, size / 2);
-            division(x, y + size / 2, size / 2);
-            division(x + size / 2, y + size / 2, size / 2);
+            division(x, y, half);
+            division(x + half, y, half);
+            division(x, y + half, half);
+            division(x + half, y + half, half);
         }
     }
-    private static boolean check(int x, int y, int size) {
+
+    private static boolean isCheck(int x, int y, int size) {
         int color = paper[x][y];
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j <size; j++) {
-                if (paper[x+i][y+j] != color) {
-                    return false; // 다른 색 -> false
-                }
+        for (int i = x; i < x + size; i++) {
+            for (int j = y; j < y + size; j++) {
+                if (paper[i][j] != color) return false;
             }
         }
-        return true; // 모든 색 동일 -> true
+        return true;
     }
 }
