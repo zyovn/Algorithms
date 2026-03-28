@@ -31,9 +31,7 @@ public class Main {
     }
 
     private static void backTracking(int depth, int start) {
-        if (depth == S) {
-            count++;
-        }
+        if (depth == S) count++;
 
         for (int i = start; i < N; i++) {
             backTracking(depth + seq[i], i + 1);
