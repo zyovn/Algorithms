@@ -11,24 +11,23 @@ public class Main {
 
         T = Integer.parseInt(br.readLine());
 
-        for (int i = 0; i < T; i++) {
+        while (T --> 0) {
             n = Integer.parseInt(br.readLine());
             Map<String, Integer> map = new HashMap<>();
+            int answer = 1;
 
-            for (int j = 0; j < n; j++) {
+            for (int i = 0; i < n; i++) {
                 StringTokenizer st = new StringTokenizer(br.readLine());
                 st.nextToken();
                 clothes = st.nextToken();
                 map.put(clothes, map.getOrDefault(clothes, 0) + 1);
             }
-            int result = 1;
 
-            for (int cnt : map.values()) {
-                result *= (cnt + 1);
+            for (int value : map.values()) {
+                answer *= (value + 1);
             }
-            sb.append(result - 1).append("\n");
+            sb.append(answer - 1).append("\n");
         }
-
         br.close();
         bw.write(sb.toString());
         bw.flush();
