@@ -10,7 +10,7 @@ public class Main {
         StringBuilder sb = new StringBuilder();
 
         T = Integer.parseInt(br.readLine());
-        for (int i = 0; i < T; i++) {
+        while (T --> 0) {
             n = Integer.parseInt(br.readLine());
             sticker = new int[2][n + 1];
             dp = new int[2][n + 1];
